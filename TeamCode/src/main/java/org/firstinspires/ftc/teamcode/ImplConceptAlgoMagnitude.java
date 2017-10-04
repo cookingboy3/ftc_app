@@ -89,9 +89,9 @@ public class ImplConceptAlgoMagnitude extends OpMode
         double extraPi = angle / Math.PI;
         //Makes variables for the Voltage Magnitude
         double VM1 = ((magnitude) * (Math.sin(extraPi + (Math.PI / 4))) + trig);
-        double VM2 = ((magnitude) * (Math.cos(extraPi + (Math.PI / 4))) + trig);
+        double VM2 = ((magnitude) * (Math.cos(extraPi + (Math.PI / 4))) - trig);
         double VM3 = ((magnitude) * (Math.cos(extraPi + (Math.PI / 4))) + trig);
-        double VM4 = (((magnitude) * (Math.sin(extraPi + (Math.PI / 4))) + trig));
+        double VM4 = (((magnitude) * (Math.sin(extraPi + (Math.PI / 4))) - trig));
         //finds the largest Voltage Magnitude above 1 or below -1 and records it
         double [] thing = {1, VM1, VM2, VM3, VM4};
         int idk = 0;
