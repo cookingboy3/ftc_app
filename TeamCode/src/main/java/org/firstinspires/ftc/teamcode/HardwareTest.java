@@ -40,16 +40,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  *  this is test hardware
  */
-public class HardwareTest {
+class HardwareTest {
     /* Public OpMode members. */
-    public encodedMotor test   = null;
+    encodedMotor test    = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwareTest(){
+    HardwareTest(){
 
     }
 

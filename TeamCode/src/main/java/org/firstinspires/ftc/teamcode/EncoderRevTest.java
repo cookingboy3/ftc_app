@@ -44,8 +44,7 @@ public class EncoderRevTest extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     HardwareTest robot = new HardwareTest();
 
-    int PULSES_PER_REVOLUTION = 280; // onboard encoder for andymark motors has 7 ppr on a 40:1 gearbox
-    boolean encodersRunning = false; // a part of ghetto movetoposition
+    private final int PULSES_PER_REVOLUTION = 280; // on-board encoder for AndyMark motors has 7 ppr on a 40:1 gearbox
 
     @Override
     public void init(){
@@ -67,8 +66,7 @@ public class EncoderRevTest extends OpMode
     @Override
     public void loop() {
         if(gamepad1.a){
-            //setEncoderRunToRev(1, robot.test); //run encoder to 1 revolution
-            robot.test.setPower(1);
+            setEncoderRunToRev(1, robot.test); //run encoder to 1 revolution
         }
 
         encoderLoop(robot.test);
@@ -86,9 +84,12 @@ public class EncoderRevTest extends OpMode
      * @param motor       DcMotor to try and move.
      */
     private void setEncoderRunToRev(int revolutions, encodedMotor motor){
-
+        motor.prepareForEncoderDrive(revolutions * PULSES_PER_REVOLUTION);
     }
-    private void encoderLoop(encodedMotor motor){
 
+    private void encoderLoop(encodedMotor motor){
+        if (motor.isEncoded){
+
+        }
     }
 }
