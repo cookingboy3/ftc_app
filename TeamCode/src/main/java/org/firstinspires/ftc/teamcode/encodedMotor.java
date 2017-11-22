@@ -7,10 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 public interface encodedMotor extends DcMotor{
-    /*
+
     boolean isEncoded = false;
     int targetEncoCount = 0;
-    */
+
 
     void prepareForEncoderDrive(int target);
 
