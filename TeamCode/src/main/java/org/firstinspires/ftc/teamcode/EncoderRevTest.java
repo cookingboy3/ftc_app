@@ -45,6 +45,7 @@ public class EncoderRevTest extends OpMode
     HardwareTest robot = new HardwareTest();
 
     private final int PULSES_PER_REVOLUTION = 280; // on-board encoder for AndyMark motors has 7 ppr on a 40:1 gearbox
+    private final double ENCODED_POWER = 0.25;
 
     @Override
     public void init(){
@@ -89,7 +90,16 @@ public class EncoderRevTest extends OpMode
 
     private void encoderLoop(encodedMotor motor){
         if (motor.isEncoded){
-
+            if (Math.abs(motor.getCurrentPosition()) < Math.abs(motor.targetEncoCount)){ // we haven't reached target count yet.
+                if (motor.targetEncoCount > 0){ // if encoder count is positive...
+                    motor.setPower(ENCODED_POWER);
+                } else { // if encoder count is negative
+                    motor.setPower(ENCODED_POWER * -1);
+                }
+            } else { // we've reached our target. stop and clean up.
+                motor.setPower(0);
+                motor.clearEncoderState();
+            }
         }
     }
 }
