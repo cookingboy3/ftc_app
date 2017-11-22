@@ -6,17 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by jlemke.
  */
 
-abstract class encodedMotor implements DcMotor{
-    public boolean isEncoded;
-    public int targetEncoCount;
+public interface encodedMotor extends DcMotor{
+    /*
+    boolean isEncoded = false;
+    int targetEncoCount = 0;
+    */
 
-    public void prepareForEncoderDrive(int target){
-        this.targetEncoCount = target;
-        isEncoded = true;
-    }
+    void prepareForEncoderDrive(int target);
 
-    public void clearEncoderState(){
-        this.targetEncoCount = 0;
-        isEncoded = false;
-    }
+    void clearEncoderState();
 }
