@@ -29,28 +29,55 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.encodedMotor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Hardware;
-import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="more encoder tests", group="Test")
-public class EncoderRevTest extends OpMode
+@TeleOp(name="more encoder tests 2", group="Test")
+public class EncoderRevTest2 extends OpMode
 {
+    /* local OpMode members. */
+    HardwareMap hwMap           =  null;
+    private ElapsedTime period  = new ElapsedTime();
+
+    /* Public OpMode members. */
+    encodedMotor test = (encodedMotor)hwMap.get(DcMotor.class, "test");
+
+    /* Constructor */
+    //HardwareTest(){
+
+    //}
+
+    /* Initialize standard Hardware interfaces */
+    public void init(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
+
+        // Define and Initialize Motors
+
+        test.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+
+        // Set all motors to zero power
+        test.setPower(0);
+
+        // Set all motors to run without encoders.
+        // May want to use RUN_USING_ENCODERS if encoders are installed.
+        test.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    HardwareTest robot = new HardwareTest();
+    //HardwareTest robot = new HardwareTest();
 
     private final int PULSES_PER_REVOLUTION = 280; // on-board encoder for AndyMark motors has 7 ppr on a 40:1 gearbox
     private final double ENCODED_POWER = 0.25;
 
     @Override
     public void init(){
-        robot.init(hardwareMap);
-        robot.test.clearEncoderState();
+        init(hardwareMap);
+        test.clearEncoderState();
     }
 
 
@@ -68,10 +95,10 @@ public class EncoderRevTest extends OpMode
     @Override
     public void loop() {
         if(gamepad1.a){
-            robot.test.prepareForEncoderDrive(280); //run encoder to 1 revolution
+            test.prepareForEncoderDrive(280); //run encoder to 1 revolution
         }
 
-        robot.test.loopMotor(ENCODED_POWER);
+        test.loopMotor(ENCODED_POWER);
     }
 
     @Override

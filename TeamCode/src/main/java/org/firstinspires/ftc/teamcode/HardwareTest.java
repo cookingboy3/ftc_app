@@ -31,22 +31,26 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.encodedMotor;
 
 
 /**
  *  this is test hardware
  */
 class HardwareTest {
-    /* Public OpMode members. */
-    encodedMotor test    = null;
+
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
+
+    /* Public OpMode members. */
+    encodedMotor test = (encodedMotor)hwMap.get(DcMotor.class, "test");
 
     /* Constructor */
     HardwareTest(){
@@ -59,7 +63,6 @@ class HardwareTest {
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        test = hwMap.get(encodedMotor.class, "test");
 
         test.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
 

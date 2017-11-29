@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.*;
+//import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
  * Created by jlemke.
@@ -15,4 +16,6 @@ public interface encodedMotor extends DcMotor{
     void prepareForEncoderDrive(int target);
 
     void clearEncoderState();
+
+    void loopMotor(double speed);
 }
