@@ -33,7 +33,7 @@ public class encodedMotorImpl extends DcMotorImpl implements encodedMotor {
 
     public encodedMotorImpl(DcMotorController controller, int portNumber, Direction direction, @NonNull MotorConfigurationType motorType) {
         super(controller, portNumber, direction, motorType);
-        this.controller = controller;
+        this.controller = (DcMotorController) controller;
     }
 
     //------------------------------------------------------------------------------------------------
