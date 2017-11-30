@@ -43,7 +43,7 @@ public class EncoderRevTest2 extends OpMode
     private ElapsedTime period  = new ElapsedTime();
 
     /* Public OpMode members. */
-    encodedMotor test = (encodedMotor)hwMap.get(DcMotor.class, "test");
+    encodedMotor test;
 
     /* Constructor */
     //HardwareTest(){
@@ -51,9 +51,17 @@ public class EncoderRevTest2 extends OpMode
     //}
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
-        hwMap = ahwMap;
+
+    // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+    //HardwareTest robot = new HardwareTest();
+
+    private final int PULSES_PER_REVOLUTION = 280; // on-board encoder for AndyMark motors has 7 ppr on a 40:1 gearbox
+    private final double ENCODED_POWER = 0.25;
+
+    @Override
+    public void init(){
+        test = (encodedMotor)hardwareMap.get(DcMotor.class, "test");
 
         // Define and Initialize Motors
 
@@ -65,18 +73,6 @@ public class EncoderRevTest2 extends OpMode
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         test.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    //HardwareTest robot = new HardwareTest();
-
-    private final int PULSES_PER_REVOLUTION = 280; // on-board encoder for AndyMark motors has 7 ppr on a 40:1 gearbox
-    private final double ENCODED_POWER = 0.25;
-
-    @Override
-    public void init(){
-        init(hardwareMap);
         test.clearEncoderState();
     }
 
