@@ -17,7 +17,7 @@ public class encodedMotorImpl extends DcMotorImpl implements encodedMotor {
     public boolean isEncoded = false;
     public int targetEncoCount = 0;
 
-    DcMotorController controller;
+    DcMotorControllerEx controller;
 
     //------------------------------------------------------------------------------------------------
     // Construction
@@ -33,7 +33,7 @@ public class encodedMotorImpl extends DcMotorImpl implements encodedMotor {
 
     public encodedMotorImpl(DcMotorController controller, int portNumber, Direction direction, @NonNull MotorConfigurationType motorType) {
         super(controller, portNumber, direction, motorType);
-        this.controller = (DcMotorController) controller;
+        this.controller = (DcMotorControllerEx) controller;
     }
 
     //------------------------------------------------------------------------------------------------
