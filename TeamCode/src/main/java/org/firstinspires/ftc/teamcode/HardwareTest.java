@@ -49,8 +49,8 @@ class HardwareTest {
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
-    /* Public OpMode members. */
-    encodedMotor test = (encodedMotor)hwMap.get(DcMotor.class, "test");
+    encodedMotor test;
+    DcMotor testMot;
 
     /* Constructor */
     HardwareTest(){
@@ -61,6 +61,10 @@ class HardwareTest {
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
+
+        /* Public OpMode members. */
+        testMot = hwMap.get(DcMotor.class, "test");
+        test = (encodedMotor)testMot;
 
         // Define and Initialize Motors
 
