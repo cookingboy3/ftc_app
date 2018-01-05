@@ -32,9 +32,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * 'Dirty' Mecanum TeleOp
@@ -44,30 +45,23 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Enjoy responsibly.
  */
 
-@TeleOp(name="Sheel Test Thinger", group="Opmode")
-
-
+@TeleOp(name="Dirty Mecanum TeleOp", group="Iterative Opmode")
 public class DirtyMecanum extends OpMode
 {
     // move that gear up
     Hardware750 robot = new Hardware750();
     // setup our cute little dpad array
     // according to language spec, these should all default to false anyway.
-    boolean[] dpadStates     = new boolean[4];
+    boolean[] dpadStates = new boolean[4];
     // setup runtime timer
     private ElapsedTime runtime = new ElapsedTime();
     static double SPEED = 1;
-    double speed = 0;
 
     @Override
     public void init() {
         telemetry.addData("Status", "Uninitialized...");
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
-        //robot.rlDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.rrDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.flDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.frDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     /*
@@ -85,9 +79,6 @@ public class DirtyMecanum extends OpMode
     @Override
     public void loop() {
         // TODO: find a better way to do this
-
-        speed = gamepad1.right_trigger;
-
         dpadStates[0] = gamepad1.dpad_up;
         dpadStates[1] = gamepad1.dpad_right;
         dpadStates[2] = gamepad1.dpad_down;
@@ -96,53 +87,51 @@ public class DirtyMecanum extends OpMode
 
 
         if (dpadStates[0]){         // full forward
-            robot.setAllDriveMotors(speed);
+            robot.setAllMotors(SPEED);
         } else if (dpadStates[1]) { // right strafe
-            robot.flDrive.setPower(speed);
-            robot.frDrive.setPower(-1 * speed);
-            robot.rlDrive.setPower(-1 * speed);
-            robot.rrDrive.setPower(speed);
+            robot.flDrive.setPower(SPEED);
+            robot.frDrive.setPower(-1 * SPEED);
+            robot.rlDrive.setPower(-1 * SPEED);
+            robot.rrDrive.setPower(SPEED);
         } else if (dpadStates[2]) { // full reverse
-            robot.setAllDriveMotors(-1 * speed);
+            robot.setAllMotors(-1 * SPEED);
         } else if (dpadStates[3]) { // left strafe
-            robot.flDrive.setPower(-1 * speed);
-            robot.frDrive.setPower(speed);
-            robot.rlDrive.setPower(speed);
-            robot.rrDrive.setPower(-1 * speed);
+            robot.flDrive.setPower(-1 * SPEED);
+            robot.frDrive.setPower(SPEED);
+            robot.rlDrive.setPower(SPEED);
+            robot.rrDrive.setPower(-1 * SPEED);
         } else if (gamepad1.right_bumper) {
-            robot.flDrive.setPower(speed);
-            robot.frDrive.setPower(-1 * speed);
-            robot.rlDrive.setPower(speed);
-            robot.rrDrive.setPower(-1 * speed);
+            robot.flDrive.setPower(SPEED);
+            robot.frDrive.setPower(-1 * SPEED);
+            robot.rlDrive.setPower(SPEED);
+            robot.rrDrive.setPower(-1 * SPEED);
         } else if (gamepad1.left_bumper) {
-            robot.flDrive.setPower(-1 * speed);
-            robot.frDrive.setPower(speed);
-            robot.rlDrive.setPower(-1 * speed);
-            robot.rrDrive.setPower(speed);
+            robot.flDrive.setPower(-1 * SPEED);
+            robot.frDrive.setPower(SPEED);
+            robot.rlDrive.setPower(-1 * SPEED);
+            robot.rrDrive.setPower(SPEED);
         } else if (gamepad1.a){
-            robot.flDrive.setPower(speed);
+            robot.flDrive.setPower(SPEED);
         } else if (gamepad1.b){
-            robot.frDrive.setPower(speed);
+            robot.frDrive.setPower(SPEED);
         } else if (gamepad1.x){
-            robot.rlDrive.setPower(speed);
+            robot.rlDrive.setPower(SPEED);
         } else if (gamepad1.y){
-            robot.rrDrive.setPower(speed);
+            robot.rrDrive.setPower(SPEED);
         } else {
 
-            robot.setAllDriveMotors(0);
+            robot.setAllMotors(0);
         }
-
-
 
         telemetry.addData("D-Pad up", dpadStates[0]);
         telemetry.addData("D-Pad right", dpadStates[1]);
         telemetry.addData("D-Pad down", dpadStates[2]);
         telemetry.addData("D-Pad left", dpadStates[3]);
         telemetry.addData("ENCODERS", "");
-        telemetry.addData("FL", (robot.flDrive.getCurrentPosition() / 1120));
-        telemetry.addData("FR", (robot.frDrive.getCurrentPosition() / 1120));
-        telemetry.addData("RL", (robot.rlDrive.getCurrentPosition() / 1120));
-        telemetry.addData("RR", (robot.rrDrive.getCurrentPosition() / 1120));
+        telemetry.addData("FL", robot.flDrive.getCurrentPosition());
+        telemetry.addData("FR", robot.frDrive.getCurrentPosition());
+        telemetry.addData("RL", robot.rlDrive.getCurrentPosition());
+        telemetry.addData("RR", robot.rrDrive.getCurrentPosition());
     }
 
     /*
