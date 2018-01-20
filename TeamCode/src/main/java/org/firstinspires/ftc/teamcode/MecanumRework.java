@@ -34,12 +34,14 @@ public class MecanumRework extends OpMode {
     final double GRIPPER_POWER = .5;
     double cooldown = 0;
     boolean clawState = false;
+    ToggleableControl ToggleableControl;
 
     @Override
     public void init() {
         //robot.arm.setPosition(50);
         telemetry.addData("Status", "Uninitialized...");
         robot.init(hardwareMap);
+        new ToggleableControl(gamepad1, gamepad2);
         telemetry.addData("Status", "Initialized");
     }
 
